@@ -19,11 +19,13 @@ public class Dot : MonoBehaviour
     private Board board;
     private GameObject otherDot;
     public bool isMatched;
+    private FindMatches findMatches;
 
     // Start is called before the first frame update
     void Start()
     {
         board = FindObjectOfType<Board>();
+        findMatches = FindObjectOfType<FindMatches>();
 
         //targetX = (int)transform.position.x;
         //targetY = (int)transform.position.y;
@@ -58,7 +60,7 @@ public class Dot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindMatches();
+        //FindMatches();
         if (isMatched)
         {
             SpriteRenderer mySprite = GetComponent<SpriteRenderer>();
@@ -75,6 +77,7 @@ public class Dot : MonoBehaviour
             {
                 board.allDots[column, row] = this.gameObject;
             }
+            findMatches.FindAllMatches();
         }
         else
         {
@@ -91,6 +94,7 @@ public class Dot : MonoBehaviour
             {
                 board.allDots[column, row] = this.gameObject;
             }
+            findMatches.FindAllMatches();
         }
         else
         {

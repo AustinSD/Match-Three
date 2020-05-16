@@ -18,10 +18,12 @@ public class Board : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject[] dots;
     public GameObject[,] allDots;
+    private FindMatches findMatches;
 
     // Start is called before the first frame update
     void Start()
     {
+        findMatches = FindObjectOfType<FindMatches>();
         allTiles = new BackgroundTile[width, height];
         allDots = new GameObject[width, height];
         SetUp();
@@ -98,6 +100,7 @@ public class Board : MonoBehaviour
     {
         if(allDots[column, row].GetComponent<Dot>().isMatched)
         {
+            findMatches.currentMatches.Remove(allDots[column, row]);
             Destroy(allDots[column, row]);
             allDots[column, row] = null;
         }
@@ -194,9 +197,5 @@ public class Board : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         currentState = GameState.move;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

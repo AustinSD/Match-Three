@@ -11,12 +11,6 @@ public class BackgroundTile : MonoBehaviour
         Initialize();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void Initialize()
     {
 
