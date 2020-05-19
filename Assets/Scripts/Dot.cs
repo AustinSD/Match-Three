@@ -5,25 +5,37 @@ using UnityEngine;
 public class Dot : MonoBehaviour
 {
     [Header("Board Variables")]
+    public int column;
+    public int row;
+    public int previousColumn;
+    public int previousRow;
+    public int targetX;
+    public int targetY;
+    public bool isMatched;
+
+    private Board board;
+    private GameObject otherDot;
+    private FindMatches findMatches;
     private Vector2 firstTouchPosition;
     private Vector2 finalTouchPosition;
     private Vector2 tempTargetPosition;
-    public int previousColumn;
-    public int previousRow;
+    
+    [Header("Swipe Stuff")]
     public float swipeAngle = 0;
     public float swipeResist = 1f;
-    public int column;
-    public int row;
-    public int targetX;
-    public int targetY;
-    private Board board;
-    private GameObject otherDot;
-    public bool isMatched;
-    private FindMatches findMatches;
+
+    [Header("Powerup Stuff")]
+    public bool isColumnBomb;
+    public bool isRowBomb;
+    public GameObject rowArrow;
+    public GameObject columnArrow;
 
     // Start is called before the first frame update
     void Start()
     {
+        isColumnBomb = false;
+        isRowBomb = false;
+
         board = FindObjectOfType<Board>();
         findMatches = FindObjectOfType<FindMatches>();
 
@@ -57,6 +69,16 @@ public class Dot : MonoBehaviour
         
     }
 
+    // This is for Testing and Debug
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            isRowBomb = true;
+            GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
+            arrow.transform.parent = this.transform;
+        }
+    }
     // Update is called once per frame
     void Update()
     {
