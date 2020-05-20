@@ -121,6 +121,15 @@ public class FindMatches : MonoBehaviour
                         }
                     }
                 }
+
+                if(currentDot.GetComponent<Dot>().isMatched == true && currentDot.GetComponent<Dot>().isColumnBomb)
+                {
+                    currentMatches.Union(GetColumnPieces(i));
+                }
+                if (currentDot.GetComponent<Dot>().isMatched == true && currentDot.GetComponent<Dot>().isRowBomb)
+                {
+                    currentMatches.Union(GetColumnPieces(j));
+                }
             }
         }
     }
