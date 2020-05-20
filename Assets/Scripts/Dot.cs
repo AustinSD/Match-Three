@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Dot : MonoBehaviour
@@ -74,11 +75,34 @@ public class Dot : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
         {
-            isRowBomb = true;
-            GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
-            arrow.transform.parent = this.transform;
+            if (transform.childCount > 0)
+            {
+                Transform child = transform.GetChild(0);
+                child.parent = null;
+                Destroy(child.gameObject);
+            }
+
+                if (isRowBomb == false && isColumnBomb == false)
+            {
+                isRowBomb = true;
+                isColumnBomb = false;
+                GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
+                arrow.transform.parent = this.transform;
+            }else if(isRowBomb == true && isColumnBomb == false)
+            {
+                isColumnBomb = true;
+                isRowBomb = false;
+                GameObject arrow = Instantiate(columnArrow, transform.position, Quaternion.identity);
+                arrow.transform.parent = this.transform;
+            } else
+            {
+                isRowBomb = false;
+                isColumnBomb = false;
+            }
+
         }
     }
+
     // Update is called once per frame
     void Update()
     {
