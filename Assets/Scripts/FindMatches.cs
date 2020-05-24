@@ -121,14 +121,16 @@ public class FindMatches : MonoBehaviour
                         }
                     }
                 }
-
-                if(currentDot.GetComponent<Dot>().isMatched == true && currentDot.GetComponent<Dot>().isColumnBomb)
+                if(currentDot != null)
                 {
-                    currentMatches.Union(GetColumnPieces(i));
-                }
-                if (currentDot.GetComponent<Dot>().isMatched == true && currentDot.GetComponent<Dot>().isRowBomb)
-                {
-                    currentMatches.Union(GetColumnPieces(j));
+                    if (currentDot.GetComponent<Dot>().isMatched == true && currentDot.GetComponent<Dot>().isColumnBomb)
+                    {
+                        currentMatches.Union(GetColumnPieces(i));
+                    }
+                    if (currentDot.GetComponent<Dot>().isMatched == true && currentDot.GetComponent<Dot>().isRowBomb)
+                    {
+                        currentMatches.Union(GetColumnPieces(j));
+                    }
                 }
             }
         }
@@ -160,5 +162,47 @@ public class FindMatches : MonoBehaviour
             }
         }
         return dots;
+    }
+
+    public void CheckBombs()
+    {
+        // Did the player move a piece
+        Debug.Log(board.currentDot);
+        if(board.currentDot != null){
+            // Is the piece moved matched
+            if (board.currentDot.isMatched)
+            {
+                // Make current unmatched to turn it into a bomb
+                board.currentDot.isMatched = false;
+                // Decide type of bomb
+                int typeOfBomb = Random.Range(0, 100);
+                if (typeOfBomb < 50)
+                {
+                    board.currentDot.MakeRowBomb();
+                }
+                else
+                {
+                    board.currentDot.MakeColumnBomb();
+                }
+            } 
+            else if (board.currentDot.otherDot != null)
+            {
+                Dot otherDot = board.currentDot.otherDot.GetComponent<Dot>();
+                if (otherDot.isMatched)
+                {
+                    otherDot.isMatched = false;
+                    int typeOfBomb = Random.Range(0, 100);
+                    if (typeOfBomb < 50)
+                    {
+                        otherDot.MakeRowBomb();
+                    }
+                    else
+                    {
+                        otherDot.MakeColumnBomb();
+                    }
+
+                }
+            }
+        }
     }
 }
