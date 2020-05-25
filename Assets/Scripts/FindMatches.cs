@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
@@ -129,7 +130,7 @@ public class FindMatches : MonoBehaviour
                     }
                     if (currentDot.GetComponent<Dot>().isMatched == true && currentDot.GetComponent<Dot>().isRowBomb)
                     {
-                        currentMatches.Union(GetColumnPieces(j));
+                        currentMatches.Union(GetRowPieces(j));
                     }
                 }
             }
@@ -164,10 +165,26 @@ public class FindMatches : MonoBehaviour
         return dots;
     }
 
+    public void MatchColorPieces(string color)
+    {
+        for(int i = 0; i < board.width; i++)
+        {
+            for(int j = 0; j <board.height; j++)
+            {
+                if(board.allDots[i, j] != null)
+                {
+                    if(board.allDots[i, j].tag == color)
+                    {
+                        board.allDots[i, j].GetComponent<Dot>().isMatched = true;
+                    }
+                }
+            }
+        }
+    }
+
     public void CheckBombs()
     {
         // Did the player move a piece
-        Debug.Log(board.currentDot);
         if(board.currentDot != null){
             // Is the piece moved matched
             if (board.currentDot.isMatched)
@@ -200,6 +217,36 @@ public class FindMatches : MonoBehaviour
                     {
                         otherDot.MakeColumnBomb();
                     }
+
+                }
+            }
+        }
+    }
+
+    public void CheckRainbowBomb()
+    {
+        // Did the player move a piece
+        if (board.currentDot != null)
+        {
+            // Is the piece moved matched
+            if (board.currentDot.isMatched)
+            {
+                // Make current unmatched to turn it into a bomb
+                board.currentDot.isMatched = false;
+                // Add Rainbow Bomb
+                Debug.Log("Make Rainbow Bomb.");
+
+            }
+            else if (board.currentDot.otherDot != null)
+            {
+                Dot otherDot = board.currentDot.otherDot.GetComponent<Dot>();
+                if (otherDot.isMatched)
+                {
+                    otherDot.isMatched = false;
+                    // Make current unmatched to turn it into a bomb
+                    board.currentDot.isMatched = false;
+                    // Add Rainbow Bomb
+                    Debug.Log("Make Rainbow Bomb.");
 
                 }
             }

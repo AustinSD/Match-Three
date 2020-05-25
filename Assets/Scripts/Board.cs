@@ -108,6 +108,11 @@ public class Board : MonoBehaviour
                 Debug.Log("Check Bombs.");
                 findMatches.CheckBombs();
             }
+            if(findMatches.currentMatches.Count == 5)
+            {
+                Debug.Log("Check Rainbow Bomb");
+                findMatches.CheckRainbowBomb();
+            }
 
             findMatches.currentMatches.Remove(allDots[column, row]);
             GameObject particle = Instantiate(destroyEffect, allDots[column, row].transform.position, Quaternion.identity);

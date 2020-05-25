@@ -26,8 +26,10 @@ public class Dot : MonoBehaviour
     public float swipeResist = 1f;
 
     [Header("Powerup Stuff")]
+    public bool isColorBomb;
     public bool isColumnBomb;
     public bool isRowBomb;
+    public GameObject colorBomb;
     public GameObject rowArrow;
     public GameObject columnArrow;
 
@@ -50,6 +52,14 @@ public class Dot : MonoBehaviour
 
     public IEnumerator CheckMoveCo()
     {
+        if (this.isColorBomb)
+        {
+            findMatches.MatchColorPieces(otherDot.tag);
+        } else if (otherDot.GetComponent<Dot>().isColorBomb)
+        {
+            findMatches.MatchColorPieces(this.gameObject.tag);
+        }
+
         yield return new WaitForSeconds(.5f);
         if(otherDot != null)
         {
@@ -83,19 +93,30 @@ public class Dot : MonoBehaviour
                 Destroy(child.gameObject);
             }
 
-                if (isRowBomb == false && isColumnBomb == false)
+            if (isRowBomb == false && isColumnBomb == false && isColorBomb == false)
             {
+                isColorBomb = false;
                 isRowBomb = true;
                 isColumnBomb = false;
                 GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
                 arrow.transform.parent = this.transform;
-            }else if(isRowBomb == true && isColumnBomb == false)
+            }else if(isRowBomb == true && isColumnBomb == false && isColorBomb == false)
             {
+                isColorBomb = false;
                 isColumnBomb = true;
                 isRowBomb = false;
                 GameObject arrow = Instantiate(columnArrow, transform.position, Quaternion.identity);
                 arrow.transform.parent = this.transform;
-            } else
+            }
+            else if (isRowBomb == false && isColumnBomb == true && isColorBomb == false)
+            {
+                isColorBomb = true;
+                isColumnBomb = false;
+                isRowBomb = false;
+                GameObject arrow = Instantiate(colorBomb, transform.position, Quaternion.identity);
+                arrow.transform.parent = this.transform;
+            }
+            else
             {
                 isRowBomb = false;
                 isColumnBomb = false;
