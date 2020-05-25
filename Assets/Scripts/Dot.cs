@@ -55,9 +55,11 @@ public class Dot : MonoBehaviour
         if (this.isColorBomb)
         {
             findMatches.MatchColorPieces(otherDot.tag);
+            this.isMatched = true;
         } else if (otherDot.GetComponent<Dot>().isColorBomb)
         {
             findMatches.MatchColorPieces(this.gameObject.tag);
+            otherDot.GetComponent<Dot>().isMatched = true;
         }
 
         yield return new WaitForSeconds(.5f);
