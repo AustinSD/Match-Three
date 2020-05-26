@@ -280,6 +280,7 @@ public class Dot : MonoBehaviour
         Debug.Log("Make Row Bomb.");
         isRowBomb = true;
         isColumnBomb = false;
+        isColorBomb = false;
         GameObject arrow = Instantiate(rowArrow, transform.position, Quaternion.identity);
         arrow.transform.parent = this.transform;
     }
@@ -289,8 +290,19 @@ public class Dot : MonoBehaviour
         Debug.Log("Make Column Bomb.");
         isColumnBomb = true;
         isRowBomb = false;
+        isColorBomb = false;
         GameObject arrow = Instantiate(columnArrow, transform.position, Quaternion.identity);
         arrow.transform.parent = this.transform;
+    }
+
+    public void MakeColorBomb()
+    {
+        Debug.Log("Make Color Bomb.");
+        isColorBomb = true;
+        isColumnBomb = false;
+        isRowBomb = false;
+        GameObject rainbowBomb = Instantiate(colorBomb, transform.position, Quaternion.identity);
+        rainbowBomb.transform.parent = this.transform;
     }
 }
 

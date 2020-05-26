@@ -105,16 +105,14 @@ public class Board : MonoBehaviour
         {
             if (findMatches.currentMatches.Count == 4 || findMatches.currentMatches.Count == 7)
             {
-                Debug.Log("Check Bombs.");
                 findMatches.CheckBombs();
             }
             if(findMatches.currentMatches.Count == 5)
             {
-                Debug.Log("Check Rainbow Bomb");
                 findMatches.CheckRainbowBomb();
             }
 
-            findMatches.currentMatches.Remove(allDots[column, row]);
+            //findMatches.currentMatches.Remove(allDots[column, row]);
             GameObject particle = Instantiate(destroyEffect, allDots[column, row].transform.position, Quaternion.identity);
             Destroy(particle, destroyEffectTime);
             Destroy(allDots[column, row]);
@@ -134,6 +132,7 @@ public class Board : MonoBehaviour
                 }
             }
         }
+        findMatches.currentMatches.Clear();
         StartCoroutine(DecreaseRowCo());
     }
 

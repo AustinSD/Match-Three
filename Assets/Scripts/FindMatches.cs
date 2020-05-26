@@ -79,27 +79,12 @@ public class FindMatches : MonoBehaviour
                         {
                             if(leftDot.tag == board.allDots[i, j].tag && rightDot.tag == board.allDots[i, j].tag)
                             {
-
                                 currentMatches.Union(IsRowBomb(currentDot.GetComponent<Dot>(), leftDot.GetComponent<Dot>(), rightDot.GetComponent<Dot>()));
-
                                 currentMatches.Union(IsColumnBomb(currentDot.GetComponent<Dot>(), leftDot.GetComponent<Dot>(), rightDot.GetComponent<Dot>()));
 
-                                if (!currentMatches.Contains(leftDot))
-                                {
-                                    currentMatches.Add(leftDot);
-                                }
-                                if (!currentMatches.Contains(rightDot))
-                                {
-                                    currentMatches.Add(rightDot);
-                                }
-                                if (!currentMatches.Contains(currentDot))
-                                {
-                                    currentMatches.Add(currentDot);
-                                }
-
-                                leftDot.GetComponent<Dot>().isMatched = true;
-                                rightDot.GetComponent<Dot>().isMatched = true;
-                                currentDot.GetComponent<Dot>().isMatched = true;
+                                AddToListAndMatch(currentDot);
+                                AddToListAndMatch(leftDot);
+                                AddToListAndMatch(rightDot);
                             }
                         }
                     }
@@ -114,25 +99,11 @@ public class FindMatches : MonoBehaviour
                             {
 
                                 currentMatches.Union(IsRowBomb(currentDot.GetComponent<Dot>(), downDot.GetComponent<Dot>(), upDot.GetComponent<Dot>()));
-
                                 currentMatches.Union(IsColumnBomb(currentDot.GetComponent<Dot>(), downDot.GetComponent<Dot>(), upDot.GetComponent<Dot>()));
 
-                                if (!currentMatches.Contains(upDot))
-                                {
-                                    currentMatches.Add(upDot);
-                                }
-                                if (!currentMatches.Contains(downDot))
-                                {
-                                    currentMatches.Add(downDot);
-                                }
-                                if (!currentMatches.Contains(currentDot))
-                                {
-                                    currentMatches.Add(currentDot);
-                                }
-
-                                upDot.GetComponent<Dot>().isMatched = true;
-                                downDot.GetComponent<Dot>().isMatched = true;
-                                currentDot.GetComponent<Dot>().isMatched = true;
+                                AddToListAndMatch(currentDot);
+                                AddToListAndMatch(upDot);
+                                AddToListAndMatch(downDot);
                             }
                         }
                     }
@@ -150,6 +121,15 @@ public class FindMatches : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void AddToListAndMatch(GameObject dot)
+    {
+        if (!currentMatches.Contains(dot))
+        {
+            currentMatches.Add(dot);
+        }
+        dot.GetComponent<Dot>().isMatched = true;
     }
 
     List<GameObject> GetColumnPieces(int column)
@@ -250,6 +230,7 @@ public class FindMatches : MonoBehaviour
                 board.currentDot.isMatched = false;
                 // Add Rainbow Bomb
                 Debug.Log("Make Rainbow Bomb.");
+                board.currentDot.MakeColorBomb();
 
             }
             else if (board.currentDot.otherDot != null)
@@ -262,6 +243,7 @@ public class FindMatches : MonoBehaviour
                     board.currentDot.isMatched = false;
                     // Add Rainbow Bomb
                     Debug.Log("Make Rainbow Bomb.");
+                    otherDot.MakeColorBomb();
 
                 }
             }
