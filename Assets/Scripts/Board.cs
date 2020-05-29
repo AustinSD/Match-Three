@@ -24,10 +24,14 @@ public class Board : MonoBehaviour
     public GameObject destroyEffect;
     private float destroyEffectTime = .4f;
     private FindMatches findMatches;
+    private ScoreManager scoreManager;
+    public int basePieceValue = 20;
+    private int streakValue = 1;
 
     // Start is called before the first frame update
     void Start()
     {
+        scoreManager = FindObjectOfType<ScoreManager>();
         findMatches = FindObjectOfType<FindMatches>();
         allTiles = new BackgroundTile[width, height];
         allDots = new GameObject[width, height];
@@ -118,6 +122,8 @@ public class Board : MonoBehaviour
             GameObject particle = Instantiate(destroyEffect, allDots[column, row].transform.position, Quaternion.identity);
             Destroy(particle, destroyEffectTime);
             Destroy(allDots[column, row]);
+
+            scoreManager.IncreaseScore(basePieceValue * streakValue);
             allDots[column, row] = null;
         }
     }
@@ -207,6 +213,7 @@ public class Board : MonoBehaviour
 
         while (MatchesOnBoard())
         {
+            streakValue++;
             yield return new WaitForSeconds(.5f);
             DestroyMatches();
         }
@@ -223,6 +230,7 @@ public class Board : MonoBehaviour
             count++;
         }
         currentState = GameState.move;
+        streakValue = 1;
     }
 
     private void SwitchPieces(int column, int row, Vector2 direction)
@@ -242,12 +250,12 @@ public class Board : MonoBehaviour
             {
                 if (allDots[i, j] != null)
                 {
-                    if (i < height - 2 && (allDots[i + 1, j]  && allDots[i +2, j]))
+                    if (i < (width - 2) && (allDots[i + 1, j] != null && allDots[i + 2, j] != null))
                     {
                         if (allDots[i + 1, j].tag == allDots[i, j].tag && allDots[i + 2, j].tag == allDots[i, j].tag) return true;
                     }
 
-                    if (j < width - 2 && (allDots[i, j + 1] && allDots[i, j + 2]))
+                    if (j < height - 2 && (allDots[i, j + 1] != null && allDots[i, j + 2] != null))
                     {
                         if (allDots[i, j + 1].tag == allDots[i, j].tag && allDots[i, j + 2].tag == allDots[i, j].tag) return true;
                     }
