@@ -1,4 +1,6 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -212,9 +214,13 @@ public class Board : MonoBehaviour
         findMatches.currentMatches.Clear();
         currentDot = null;
         yield return new WaitForSeconds(.5f);
-        if (IsDeadlocked())
+        int count = 0;
+        while(IsDeadlocked() && count < 4)
         {
-            Debug.Log("Deadlocked");
+            Debug.Log("Deadlocked count: " + count);
+            ShuffleBoard();
+            DestroyMatches();
+            count++;
         }
         currentState = GameState.move;
     }
@@ -286,5 +292,30 @@ public class Board : MonoBehaviour
         }
 
         return true;
+    }
+
+    private void ShuffleBoard()
+    {
+        List<GameObject> newBoard = new List<GameObject>();
+        for(int i = 0; i < width; i++)
+        {
+            for(int j = 0; j < height; j++)
+            {
+                if(allDots[i,j] != null) newBoard.Add(allDots[i, j]);
+            }
+        }
+
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                int pieceToUse = Random.Range(0, newBoard.Count);
+                Dot piece = newBoard[pieceToUse].GetComponent<Dot>();
+                piece.column = i;
+                piece.row = j;
+                allDots[i, j] = newBoard[pieceToUse];
+                newBoard.Remove(newBoard[pieceToUse]);
+            }
+        }
     }
 }
