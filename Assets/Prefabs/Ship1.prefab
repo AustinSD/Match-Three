@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8672173727161496911}
   m_Layer: 0
   m_Name: Ship1
-  m_TagString: Yellow Dot
+  m_TagString: Ship1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

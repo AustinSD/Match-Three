@@ -13,6 +13,12 @@ TagManager:
   - Teal Dot
   - Yellow Dot
   - Matched Dot
+  - Right Arrow
+  - Up Arrow
+  - Down Arrow
+  - Left Arrow
+  - Ship1
+  - Ship2
   layers:
   - Default
   - TransparentFX

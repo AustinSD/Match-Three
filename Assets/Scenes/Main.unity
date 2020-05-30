@@ -177,7 +177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6767c598f09294c429d4641f9181002d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7f5cd26b357d13f4e8e42541827deca1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -617,6 +617,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 158b937fd08dfee45b679dc7517d4fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 698494813}
+  score: 0
 --- !u!1 &1522779616
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,7 +730,7 @@ GameObject:
   - component: {fileID: 2063243454}
   m_Layer: 0
   m_Name: Board
-  m_TagString: Untagged
+  m_TagString: Right Arrow
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -747,24 +749,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 1
   width: 7
-  height: 10
+  height: 7
   offset: 20
   tilePrefab: {fileID: 371356367379671641, guid: 6d2b94c146566454cbb7ff364de050e3,
     type: 3}
   dots:
-  - {fileID: 2271136500977833799, guid: a8395be58c1d7134c8d56f3c6efe1e22, type: 3}
+  - {fileID: 7459953253558692597, guid: 5015a08e5411575448895b069ad70342, type: 3}
+  - {fileID: 7459953253558692597, guid: ccf6a4c9a4a97054a9b801a0dc055b8c, type: 3}
+  - {fileID: 7459953253558692597, guid: 5a0b531a550a94c4cb91ecf3a88e0b85, type: 3}
+  - {fileID: 7459953253558692597, guid: 65aa321d974450b4dbf38061b537ae4b, type: 3}
   - {fileID: 5384860829988943174, guid: 7b7c8a6a7face4848993bb2a325a0601, type: 3}
-  - {fileID: 3003185986713648986, guid: 7dee141b564bee24295aa8ca35f60770, type: 3}
-  - {fileID: 6859228095545174851, guid: 7161540186f42e842bc0fa57e9d74061, type: 3}
-  - {fileID: 3872270579794820365, guid: c790ccb57dd784a429ec331fa6902056, type: 3}
-  - {fileID: 534753677072768844, guid: ddd888364e1f9b449b0a53c145719dc9, type: 3}
-  - {fileID: 7245876249664243670, guid: c9e635b251b672a44bf7ee351e26d9bc, type: 3}
   - {fileID: 7245876249664243670, guid: 9cbe7d1be0360d744b7494646ed6c177, type: 3}
-  - {fileID: 7459953253558692597, guid: 34f7ad9ec9ba5924c80cbf2c0bcd8f83, type: 3}
+  - {fileID: 7245876249664243670, guid: c9e635b251b672a44bf7ee351e26d9bc, type: 3}
   - {fileID: 7245876249664243670, guid: 6c1a5c45ffaab76479c668d1cd628139, type: 3}
   currentDot: {fileID: 0}
   destroyEffect: {fileID: 1977173099241169742, guid: b8c3d2eaf7ea6a746932866d290b029e,
     type: 3}
+  basePieceValue: 20
 --- !u!4 &2063243455
 Transform:
   m_ObjectHideFlags: 0
